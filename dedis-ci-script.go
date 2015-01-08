@@ -10,7 +10,7 @@ import (
 func main() {
 	// get all changed files
 	fmt.Println("Diffing Files")
-	cmd := exec.Command("git", "diff", "--name-only", "production")
+	cmd := exec.Command("git", "diff", "--name-only", "production/master")
 	cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
 	if err != nil {
