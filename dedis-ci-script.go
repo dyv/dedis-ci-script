@@ -10,13 +10,13 @@ import (
 func main() {
 	// get all changed files
 	fmt.Println("Fetching Origin Master")
-	err := exec.Command("git", "fetch", "--all").Run()
+	err := exec.Command("git", "fetch", "origin/master").Run()
 	if err != nil {
 		fmt.Println("Error fetching: ", err)
 		os.Exit(1)
 	}
 	fmt.Println("Diffing Files")
-	cmd := exec.Command("git", "diff", "--name-only", "origin/master")
+	cmd := exec.Command("git", "diff", "--name-only", "origin")
 	cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
 	if err != nil {
