@@ -9,6 +9,11 @@ import (
 
 func main() {
 	// get all changed files
+	err := exec.Command("git", "fetch", "origin", "master").Run()
+	if err != nil {
+		fmt.Println("Error fetching: ", err)
+		os.Exit(1)
+	}
 	cmd := exec.Command("git", "diff", "--name-only", "origin/master")
 	cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
