@@ -23,7 +23,7 @@ func main() {
 	for _, fn := range fnames {
 		// go source code must be properly formatted
 		if strings.HasSuffix(fn, ".go") {
-			fmtCmd := exec.Command("gofmt -l", fn)
+			fmtCmd := exec.Command("gofmt", "-l", fn)
 			fmtCmd.Stderr = os.Stderr
 			out, err := fmtCmd.Output()
 			if err != nil {
