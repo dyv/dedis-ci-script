@@ -9,7 +9,6 @@ import (
 
 func main() {
 	// get all changed files
-	fmt.Println("Diffing Files")
 	cmd := exec.Command("git", "diff", "--name-only", "production/master")
 	cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
@@ -18,7 +17,7 @@ func main() {
 		os.Exit(1)
 	}
 	fnames := strings.Split(string(output), "\n")
-	fmt.Println("Files Changed: ", fnames)
+	fmt.Println("Files changed from origin/master: ", fnames)
 	good := true
 	for _, fn := range fnames {
 		// go source code must be properly formatted
@@ -33,13 +32,13 @@ func main() {
 			// if go fmt returns anything that means the file has been
 			// formatted and did not conform.
 			if len(out) != 0 {
-				fmt.Println("File Not Properly Formatted: ", fn)
+				fmt.Println("File not properly formatted: ", fn)
 				good = false
 			}
 		}
 	}
 	if good == false {
-		fmt.Println("Failed: Files Not Properly Formatted")
+		fmt.Println("Failed: files not properly formatted: Use gofmt")
 		os.Exit(1)
 	}
 	tests := exec.Command("go", "test", "-v", "./...")
