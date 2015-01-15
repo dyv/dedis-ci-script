@@ -16,6 +16,7 @@ func main() {
 		fmt.Println("error running git diff: ", err)
 		os.Exit(1)
 	}
+	fmt.Println("git diff --name-only production/master: ", string(output))
 	fnames := strings.Split(string(output), "\n")
 	fmt.Println("Files changed from origin/master: ", fnames)
 	good := true
