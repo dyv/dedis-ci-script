@@ -9,6 +9,12 @@ import (
 
 func main() {
 	// get all changed files
+	l := exec.Command("git", "log")
+	l.Stdout = os.Stdout
+	l.Run()
+	diff := exec.Command("git", "diff")
+	diff.Stdout = os.Stdout
+	diff.Run()
 	cmd := exec.Command("git", "diff", "--name-only", "production/master")
 	cmd.Stderr = os.Stderr
 	output, err := cmd.Output()
@@ -24,7 +30,7 @@ func main() {
 		// go source code must be properly formatted
 		if strings.HasSuffix(fn, ".go") {
 			if _, err := os.Stat(fn); os.IsNotExist(err) {
-				fmt.Printf("no such go file: %s", fn)
+				fmt.Printf("no such go file: %s\n", fn)
 				continue
 			}
 			fmtCmd := exec.Command("gofmt", "-l", fn)
